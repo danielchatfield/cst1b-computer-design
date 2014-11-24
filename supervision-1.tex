@@ -1,0 +1,80 @@
+\documentclass{supervision}
+\usepackage{course}
+
+\Supervision{5}
+
+\begin{document}
+
+\section*{Lecture 17}
+
+This lecture continues the examination of GPUs and introduces multithreading. At the end, students should understand the basic architecture of a GPU streaming multiprocessor and how this can be programmed in CUDA.
+
+\begin{questions}
+    \question
+    Why do GPUs rely on multithreading as well as SIMD? What bottleneck does multithreading target?
+    \question
+    How can a SIMD processor pipeline be modified to allow multithreading?
+    \question
+    The warp scheduler chooses instructions to execute. What are its criteria for choosing and what other schemes could be implemented?
+    \question
+    What are the types of memory available within a GPU and what are their relative advantages or disadvantages?
+    \question
+    What types of application best suit GPUs and how can you program to take advantage of the various forms of parallelism available?
+\end{questions}
+
+\section*{Lecture 18}
+
+The final lecture gives an overview of the directions that computer architecture is heading. The aim of this lecture is to give students a perspective on the challenges of the future and an introduction to some of the research that is tackling it.
+
+\begin{questions}
+    \question
+    Why is energy efficiency the “new fundamental limiter of processor performance”, as Borkar and Chien say?
+    \question
+    Describe ARM’s big.LITTLE system.
+    \begin{parts}
+        \part
+        What’s the point of having two types of core and when might they be used?
+        \part
+        Would it be useful to have a third core type and, if so, what would its characteristics be?
+    \end{parts}
+    \question
+    When might it make sense to implement functionality in a specialised accelerator rather than within a general purpose core?
+    \question
+    What types of application domain might benefit from approximate computing?
+
+\end{questions}
+
+\section*{Case study}
+
+For a processor or \textit{system-on-chip} of your choice (perhaps one you own), try to find the following:
+
+\begin{questions}
+    \question
+    Its main components
+    \question
+    Which instruction set(s) and extensions it supports
+    \question
+    The core's pipeline structure, including numbers and types of functional units and number of available registers
+    \question
+    Details of the memory hierarchy
+    \question
+    What it does to reduce the effect of control and data dependencies
+    \question
+    Its support for parallel execution and memory consistency (if any)
+    \question
+    What it can do to improve performance and/or power efficiency
+    \question
+    Its clock speed and fabrication process (e.g. 28/40/65 nm)
+    \question
+    How it has been tailored to its target market, and the compromises which had to be made
+    \question
+    How it improved on its predecessor (if any) and how it was improved upon by its successor (if any)
+    \question
+    Any other noteworthy features or design decisions
+    \question
+    (Bonus points if you can find or produce a labelled image of the various parts of the chip)
+\end{questions}
+
+
+
+\end{document}
