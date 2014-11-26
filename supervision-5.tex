@@ -12,14 +12,38 @@ This lecture continues the examination of GPUs and introduces multithreading. At
 \begin{questions}
     \question
     Why do GPUs rely on multithreading as well as SIMD? What bottleneck does multithreading target?
+    \begin{solution}
+    It takes a very long time (perhaps hundreds of clock cycles) for a memory operation to complete. CPU architectures include two or three-level cache memory hierarchies to reduce memory latency. Whilst Nvidia's \textit{Kepler} and more recently \textit{Maxwell} architectures do include some caching (e.g. \textit{256KB} on the \textit{GK107} and \textit{2MB} on the \textit{GM107}) they are rarely effective as GPUs are designed for stream computing.
+    
+    Instead, GPUs tolerate this latency with a high degree of \textit{multithreading}. When one warp stalls on a memory operation the multiprocessor control unit selects another ready warp and switches to that one.
+    \end{solution}
+
     \question
     How can a SIMD processor pipeline be modified to allow multithreading?
+    \begin{solution}
+    % TODO SIMD multithreading
+    \end{solution}
+
     \question
     The warp scheduler chooses instructions to execute. What are its criteria for choosing and what other schemes could be implemented?
+    \begin{solution}
+    The warp scheduler selects an eligible warp and then depending on which architecture it then dispatches 1 instruction (for Fermi and older) or up to 2 independent instructions (for Kepler and Maxwell).
+    \end{solution}
+
     \question
     What are the types of memory available within a GPU and what are their relative advantages or disadvantages?
+    \begin{solution}
+    Each SIMD land is allocated private memory for stack frame and spilling registers. Each multithreaded processor has a local memory that is not shared between processors and is allocated dynamically to thread blocks on creation. The processor local memory can be used for communication between threads.
+    
+    There is also the global GPU memory that is available across the GPU and to the host system.
+    \end{solution}
+
     \question
     What types of application best suit GPUs and how can you program to take advantage of the various forms of parallelism available?
+    \begin{solution}
+    Any computation that requires the same calculation to be done to lots of data is \textit{embarrassingly parallel} and thus well suited to a GPU. To make best use of the GPU, computations should be programmed such that as many of the SIMD lanes are active.
+    \end{solution}
+
 \end{questions}
 
 \section*{Lecture 18}
