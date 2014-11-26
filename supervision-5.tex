@@ -53,18 +53,46 @@ The final lecture gives an overview of the directions that computer architecture
 \begin{questions}
     \question
     Why is energy efficiency the “new fundamental limiter of processor performance”, as Borkar and Chien say?
+    \begin{solution}
+    In the past, when the transistor size shrunk and more transistors could be put on a die the voltage could also be lowered (keeping the overall power consumption broadly the same). Going forward this will not be possible as the leakage will be too high and thus the energy requirements will be prohibitive. 
+    
+    The ARM CTO described this as an era of "dark silicon" where a proportion of a chip (potentially a large proportion) at any given time must be idle to meet power (and heat) requirements.
+    
+    Transistor size is no longer the determining factor in CPU speed and innovation in micro-architecture will be the driving force behind performance gains by making parts more energy efficient.
+    \end{solution}
+
     \question
     Describe ARM’s big.LITTLE system.
+    \begin{solution}
+    ARM's \textit{big.LITTLE} system is a power saving technology aimed at the mobile market where there is a strong demand for both performance and energy efficiency. It combines a high-performance core with an energy-efficient core, by keeping track of load history during execution it can anticipate the performance needs of the thread next time it runs and runs it on the relevant core.
+    \end{solution}
+
     \begin{parts}
         \part
         What’s the point of having two types of core and when might they be used?
+        \begin{solution}
+        One core provides high performance (would be used when rendering a webpage) and the other good energy efficiency (would be used when doing some not very demanding task like writing a text message).
+        \end{solution}
+
         \part
         Would it be useful to have a third core type and, if so, what would its characteristics be?
+        \begin{solution}
+        You could argue that an ultra energy efficient core that was only used for really low performance (but long running) things like tracking motion would be beneficial but you could also argue that it would be better to have that as a co-processor (like the M7 in the iPhone 5S).
+        \end{solution}
+
     \end{parts}
     \question
     When might it make sense to implement functionality in a specialised accelerator rather than within a general purpose core?
+    \begin{solution}
+    If it is used often and the speedup (or energy efficiency) is significant. An example is video encoding - when implemented as a specialised accelerator it is very efficient as the data can just stream through, without this it would not be possible to achieve 15+ hours video playback on an iPad.
+    \end{solution}
+
     \question
     What types of application domain might benefit from approximate computing?
+    \begin{solution}
+    Audio and video computation does not need to be exact as humans tend to be quite forgiving of small distortions. If the colour of one in every million pixels was slightly off then it would not even be noticeable.
+    \end{solution}
+
 
 \end{questions}
 
