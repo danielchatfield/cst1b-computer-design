@@ -21,7 +21,7 @@ This lecture continues the examination of GPUs and introduces multithreading. At
     \question
     How can a SIMD processor pipeline be modified to allow multithreading?
     \begin{solution}
-    % TODO SIMD multithreading
+    Not sure what this really means. Loading multiple pieces of data at once?
     \end{solution}
 
     \question
@@ -101,30 +101,86 @@ The final lecture gives an overview of the directions that computer architecture
 For a processor or \textit{system-on-chip} of your choice (perhaps one you own), try to find the following:
 
 \begin{questions}
+    \begin{solution}
+    The Apple A7 is a 64-bit SoC designed by Apple and used in the iPhone 5S. It was the first 64-bit ARM CPU to ship in a consumer smartphone.
+    \end{solution}
+
     \question
     Its main components
+    \begin{solution}
+    \begin{description}
+        \item[Dual core CPU]
+        An Apple designed \SIrange{1.3}{1.4}{\GHz} \emph{ARMv8-A} processor called Cyclone.
+        \item[GPU]
+        A \emph{PowerVR G6430} from Imagination in a four cluster configuration supporting OpenGL ES 3.0.
+        \item[Image processor]
+        A dedicated image processing chip for reducing noise, sharpening and image stabilizing.
+        \item[Secure enclave] 
+        Cryptographic chip that stores the data from the Touch ID fingerprint sensor. The security is protected by ARM's TrustZone/SecurCore technology and whilst the firmware can be updated, doing so automatically wipes the flash.
+        \item[Motion coprocessor]
+        The motion coprocessor is a separate (not actually on the chip so strictly speaking not part of SoC) low power ARM based processor that services the accelerometer, gyroscope and compass. It allows the phone to be continually recording this data and make it available to apps and Apple health.
+        
+    \end{description}
+    \end{solution}
+
     \question
     Which instruction set(s) and extensions it supports
+    \begin{solution}
+    It supports the AArch64 and AArch32 instruction sets with TrustZone.
+    \end{solution}
+
     \question
     The core's pipeline structure, including numbers and types of functional units and number of available registers
+    \begin{solution}
+    The A7 features a 13-stage pipeline and is capable of dispatching up to 6 instructions per cycle. Co-issuing FP and NEON instructions are limited. The pipeline for each core is 3-wide and supports out of order execution. Each core has 4 integer ALUs, 2 load/store units, 2 branch units, 1 indirect branch unit and 3 FP/NEON ALUs.
+    
+    Apple's LLVM commits indicate a massive 192 entry reorder buffer that lets the CPU reorder instructions to make them more efficient.
+    \end{solution}
+
     \question
     Details of the memory hierarchy
+    \begin{solution}
+    The SoC contains 1GB of DRAM with an L1 cache consisting of 64KB for instructions and 64KB for data. There is a 1MB L2 cache and a 4MB L3 cache.
+    
+    The latency on the L1 and L2 caches are 3 and 10 clock cycles respectively (the latter being a huge improvement on the previous generation).
+    \end{solution}
+
     \question
     What it does to reduce the effect of control and data dependencies
+    \begin{solution}
+    The penalty for mispredicting a branch is between 14 and 19 cycles (it varies). As already mentioned the CPU pipeline reorders instructions (from a huge buffer). The branch predictor is much better (even caused a lawsuit from University of Michigan).
+    \end{solution}
+
     \question
     Its support for parallel execution and memory consistency (if any)
+    \begin{solution}
+    Is previously mentioned the CPU supports issuing up to 6 instructions simultaneously per core and supports a limited set of NEON instructions (SIMD instructions).
+    \end{solution}
+
     \question
     What it can do to improve performance and/or power efficiency
+    \begin{solution} 
+    The only real power efficiency improvements over the previous generation are a result of race-to-sleep (by being faster it spends less time working and more time idle) and from the use of the M7 motion co-processor. 
+    \end{solution}
+
     \question
     Its clock speed and fabrication process (e.g. 28/40/65 nm)
+    \begin{solution}
+    Its clock speed is \SIrange{1.3}{1.4}{\GHz} and is fabricated at \SI{28}{nm}.
+    \end{solution}
+
     \question
     How it has been tailored to its target market, and the compromises which had to be made
+    \begin{solution}
+    All the components are well suited to being in a mobile phone (e.g. image processor, GPU etc.)
+    \end{solution}
+
     \question
     How it improved on its predecessor (if any) and how it was improved upon by its successor (if any)
-    \question
-    Any other noteworthy features or design decisions
-    \question
-    (Bonus points if you can find or produce a labelled image of the various parts of the chip)
+    \begin{solution}
+    Massive performance improvement (2x) and 64 bit architecture support.
+    \end{solution}
+
 \end{questions}
 
 
